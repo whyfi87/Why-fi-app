@@ -18,6 +18,8 @@ jobs:
       - name: Install NDK
         run: |
           echo "y" | sudo ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "ndk;25.2.9519653" "cmake;3.22.1"
+      - name: Create keystore directory
+        run: mkdir -p ~/.config/.android
       - name: Make gradlew executable
         run: chmod +x gradlew
       - name: Build APK
@@ -27,4 +29,3 @@ jobs:
         with:
           name: whyfi-esim-apk
           path: app-unpriv/build/outputs/apk/debug/*.apk
-  
