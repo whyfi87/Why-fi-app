@@ -1,9 +1,7 @@
-Build WHYFI eSIM APK
-
+name: Build WHYFI eSIM APK
 on:
   push:
     branches: [ "master" ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +13,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build APK
-        run: ./gradlew :app-unpriv:assembleDebug
+        run: chmod +x gradlew && ./gradlew :app-unpriv:assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
