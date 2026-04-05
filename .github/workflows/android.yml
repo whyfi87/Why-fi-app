@@ -13,7 +13,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Build APK
-        run: chmod +x gradlew && ./gradlew :app-unpriv:assembleDebug
+        run: chmod +x gradlew && ./gradlew :app-unpriv:assembleDebug--warning-mode all
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
