@@ -16,15 +16,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Install NDK
+        run: echo "y" | sudo ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "ndk;25.2.9519653" "cmake;3.22.1"
+      - name: Fix keystore
         run: |
-          echo "y" | sudo ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager "ndk;25.2.9519653" "cmake;3.22.1"
-      - name: Create keystore directory
-        run: mkdir -p ~/.config/.android
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-        run: chmod +x gradlew
+          mkdir -p /home/runner/.config/.android
+          chmod 777 /home/runner/.config/.android
+          keytool -genkey -v -keystore /home/runner/.config/.android/debug.keystore -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US"
       - name: Build APK
-        run: ./gradlew :app-unpriv:assembleDebug
+        run: chmod +x gradlew && ./gradlew :app-unpriv:assembleDebug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
