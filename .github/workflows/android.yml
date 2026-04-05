@@ -22,6 +22,7 @@ jobs:
         run: mkdir -p ~/.config/.android
       - name: Make gradlew executable
         run: chmod +x gradlew
+        run: chmod +x gradlew
       - name: Build APK
         run: ./gradlew :app-unpriv:assembleDebug
       - name: Upload APK
